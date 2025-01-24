@@ -38,4 +38,12 @@ public class FreeBoardController {
         return ResponseEntity.ok(modifyResDto);
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
+    @DeleteMapping("/delete/{freeBoardId}")
+    public ResponseEntity<?> deleteFreeBoard(@AuthenticationPrincipal UserDetails userDetails,
+                                             @RequestParam(name = "freeBoardId") Long freeBoardId){
+
+        return ResponseEntity.ok(null);
+    }
+
 }
