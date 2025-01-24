@@ -1,7 +1,9 @@
 package com.freeboard.project.freeboard.controller;
 
 import com.freeboard.project.freeboard.dto.req.CreateReqDto;
+import com.freeboard.project.freeboard.dto.req.ModifyReqDto;
 import com.freeboard.project.freeboard.dto.res.CreateResDto;
+import com.freeboard.project.freeboard.dto.res.ModifyResDto;
 import com.freeboard.project.freeboard.service.FreeBoardService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,14 @@ public class FreeBoardController {
                                                         @RequestBody CreateReqDto createReqDto){
         CreateResDto createResDto = freeBoardService.createFreeBoard(userDetails, createReqDto);
         return ResponseEntity.ok(createResDto);
+    }
+
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PostMapping("/modify")
+    public ResponseEntity<ModifyResDto> modifyFreeBoard(@AuthenticationPrincipal UserDetails userDetails,
+                                                        @RequestBody ModifyReqDto modifyReqDto){
+        ModifyResDto modifyResDto = freeBoardService.modifyFreeBoard(userDetails, modifyReqDto);
+        return ResponseEntity.ok(modifyResDto);
     }
 
 }
