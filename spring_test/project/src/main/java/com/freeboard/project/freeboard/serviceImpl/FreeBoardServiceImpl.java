@@ -33,7 +33,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         freeBoardRepository.save(freeBoard);
 
-        return new CreateResDto(freeBoard.getId(), freeBoard.getTitle(), freeBoard.getContent(), freeBoard.getCreatedDate(), freeBoard.getMember());
+        return new CreateResDto(freeBoard.getId(), freeBoard.getTitle(), freeBoard.getContent(), freeBoard.getCreatedDate(), freeBoard.getMember().getId(), freeBoard.getMember().getName());
     }
 
 }

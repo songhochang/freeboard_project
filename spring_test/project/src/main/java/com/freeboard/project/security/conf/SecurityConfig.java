@@ -38,11 +38,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/security").permitAll()
+                        .requestMatchers("/api/security/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api/freeBoard").authenticated())
+                        .requestMatchers("/api/freeBoard/**").authenticated()
+//                        .anyRequest().permitAll()
+                )
                 .addFilterBefore(new SecurityFilter(new JwtUtils(), memberRepository, refreshTokenRepository), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

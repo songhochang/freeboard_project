@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -74,14 +75,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
 
         Set<SimpleGrantedAuthority> roles = Set.of(new SimpleGrantedAuthority("ROLE_" + role));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                User.builder()
-                        .username(email)
-                        .roles(role)
-                        .build(),
-                null,
-                roles
-        );
+        UserDetails userDetails = User.builder()
+                .username(email)
+                .password(password)
+                .authorities(roles)
+                .build();
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, roles);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         log.info("Authenticated user: {}", email);
     }
@@ -98,11 +98,12 @@ public class SecurityFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("JWT 토큰 및 REFRESH 토큰이 유효하지 않습니다");
             log.warn("Refresh token invalid for user: {}", email);
-            return; // 응답 후 종료
+            return;
         }
 
         String newJwt = jwtUtils.createJWT(email, member.getPassword(), member.getMemberRole());
-        response.setHeader("Access-Token", newJwt);
+
+        response.setHeader("Authorization", "Bearer " + newJwt);
         log.info("New JWT issued for user: {}", email);
     }
 

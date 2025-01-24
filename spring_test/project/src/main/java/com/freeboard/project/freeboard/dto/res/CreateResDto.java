@@ -18,6 +18,7 @@ public class CreateResDto {
     private String title;
     private String content;
     private LocalDateTime createdDate;
-    private Member member;
+    private Long member_id;
+    private String memberName;
 
 }
