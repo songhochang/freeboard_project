@@ -1,8 +1,7 @@
 package com.freeboard.project.security.utils;
 
-import com.freeboard.project.entity.enums.MemberRole;
+import com.freeboard.project.security.entity.enums.MemberRole;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;

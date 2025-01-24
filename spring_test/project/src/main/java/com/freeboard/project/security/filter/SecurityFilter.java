@@ -1,7 +1,7 @@
 package com.freeboard.project.security.filter;
 
-import com.freeboard.project.entity.Member;
-import com.freeboard.project.repository.MemberRepository;
+import com.freeboard.project.security.entity.Member;
+import com.freeboard.project.security.repository.MemberRepository;
 import com.freeboard.project.security.entity.RefreshToken;
 import com.freeboard.project.security.error.UserException;
 import com.freeboard.project.security.repository.RefreshTokenRepository;

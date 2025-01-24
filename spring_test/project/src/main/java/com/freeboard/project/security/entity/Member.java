@@ -1,6 +1,7 @@
-package com.freeboard.project.entity;
+package com.freeboard.project.security.entity;
 
-import com.freeboard.project.entity.enums.MemberRole;
+import com.freeboard.project.freeboard.entity.FreeBoard;
+import com.freeboard.project.security.entity.enums.MemberRole;
 import jakarta.persistence.*;
 import lombok.*;
 

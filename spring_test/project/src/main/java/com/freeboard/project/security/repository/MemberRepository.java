@@ -1,6 +1,6 @@
-package com.freeboard.project.repository;
+package com.freeboard.project.security.repository;
 
-import com.freeboard.project.entity.Member;
+import com.freeboard.project.security.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

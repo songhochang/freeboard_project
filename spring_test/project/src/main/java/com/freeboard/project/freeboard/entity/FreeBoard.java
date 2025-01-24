@@ -1,5 +1,6 @@
-package com.freeboard.project.entity;
+package com.freeboard.project.freeboard.entity;
 
+import com.freeboard.project.security.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 

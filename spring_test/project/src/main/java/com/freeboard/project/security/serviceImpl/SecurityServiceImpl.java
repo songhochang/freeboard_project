@@ -1,8 +1,8 @@
 package com.freeboard.project.security.serviceImpl;
 
-import com.freeboard.project.entity.Member;
-import com.freeboard.project.entity.enums.MemberRole;
-import com.freeboard.project.repository.MemberRepository;
+import com.freeboard.project.security.entity.Member;
+import com.freeboard.project.security.entity.enums.MemberRole;
+import com.freeboard.project.security.repository.MemberRepository;
 import com.freeboard.project.security.dto.req.JoinReqDto;
 import com.freeboard.project.security.dto.req.LoginReqDto;
 import com.freeboard.project.security.dto.res.JoinResDto;
@@ -12,14 +12,11 @@ import com.freeboard.project.security.error.UserException;
 import com.freeboard.project.security.repository.RefreshTokenRepository;
 import com.freeboard.project.security.service.SecurityService;
 import com.freeboard.project.security.utils.JwtUtils;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +38,7 @@ public class SecurityServiceImpl implements SecurityService {
         Member newMember = new Member();
         newMember.setEmail(joinReqDto.getEmail());
         newMember.setName(joinReqDto.getName());
-        newMember.setPassword(joinReqDto.getPassword());
+        newMember.setPassword(passwordEncoder.encode(joinReqDto.getPassword()));
         newMember.setMemberRole(MemberRole.USER);
         memberRepository.save(newMember);
         log.info("회원가입 성공: 이메일={}", joinReqDto.getEmail());

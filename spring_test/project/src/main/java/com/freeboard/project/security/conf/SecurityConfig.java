@@ -1,6 +1,6 @@
 package com.freeboard.project.security.conf;
 
-import com.freeboard.project.repository.MemberRepository;
+import com.freeboard.project.security.repository.MemberRepository;
 import com.freeboard.project.security.filter.SecurityFilter;
 import com.freeboard.project.security.repository.RefreshTokenRepository;
 import com.freeboard.project.security.utils.JwtUtils;
@@ -41,7 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/security").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll())
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/api/freeBoard").authenticated())
                 .addFilterBefore(new SecurityFilter(new JwtUtils(), memberRepository, refreshTokenRepository), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
